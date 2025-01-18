@@ -66,10 +66,30 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="success-message">
-        <img src="assets/mobile.png" alt="شعار الشركة">
-        <h1>تمت العملية بنجاح</h1>
-        <p>©جميع الحقوق محفوظة لتطبيق تَسْهِيل </p>
+    <div class="success-message" id="success-message">
+        <img src="https://via.placeholder.com/130" alt="شعار الشركة"> <!-- يمكنك تغيير الرابط هنا إلى رابط الصورة الفعلي -->
+        <h1 id="message-heading">تمت العملية بنجاح</h1>
+        <p>© جميع الحقوق محفوظة لتطبيق تَسْهِيل</p>
     </div>
+
+    <script>
+        // استخراج التوكن من الرابط (URL)
+        function getTokenFromUrl() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('token');
+        }
+
+        // التأكد من وجود التوكن
+        const token = getTokenFromUrl();
+
+        if (token) {
+            // إذا تم العثور على التوكن، عرض رسالة نجاح
+            document.getElementById('message-heading').innerText = 'تم إعادة تعيين كلمة المرور بنجاح';
+            // يمكنك هنا إرسال التوكن إلى السيرفر لتحديث كلمة المرور عبر Supabase، لكن هذا غير ممكن فقط من خلال HTML.
+        } else {
+            // إذا لم يكن هناك توكن في الرابط
+            document.getElementById('message-heading').innerText = 'حدث خطأ أثناء إعادة تعيين كلمة المرور';
+        }
+    </script>
 </body>
 </html>
