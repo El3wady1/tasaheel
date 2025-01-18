@@ -3,93 +3,91 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>رسالة نجاح</title>
+    <title>إعادة تعيين كلمة المرور</title>
+    <script src="https://cdn.jsdelivr.net/npm/supabase-js@1.35.4/dist/umd/supabase.min.js"></script>
     <style>
         body {
             font-family: 'Cairo', sans-serif;
-            background: linear-gradient(135deg, #a8d0e6, #f1f8ff); /* خلفية متدرجة بين الأزرق الفاتح والأبيض */
-            margin: 0;
-            padding: 0;
+            background-color: #f1f8ff;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            overflow: hidden;
+            margin: 0;
         }
-        .success-message {
-            text-align: center;
-            background: #ffffff;
-            border-radius: 20px;
+        .reset-container {
+            background: #fff;
             padding: 40px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-            max-width: 450px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
             width: 100%;
-            animation: fadeIn 0.8s ease-out;
+            max-width: 400px;
         }
-        .success-message img {
-            width: 130px;
-            height: 130px;
-            border-radius: 50%;
-            margin-bottom: 20px;
-            border: 5px solid #a8d0e6; /* إضافة حدود باللون الأزرق الفاتح */
-            transition: transform 0.3s ease;
+        h2 {
+            text-align: center;
         }
-        .success-message img:hover {
-            transform: scale(1.1);
+        input[type="password"], input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
         }
-        .success-message h1 {
-            font-size: 2em;
-            color: #4f8c9e; /* تغيير اللون إلى الأزرق الهادئ */
-            margin: 0;
-            margin-bottom: 15px;
-            background: linear-gradient(90deg, #4f8c9e, #a8d0e6); /* تدرج لوني بين الأزرق الفاتح والأزرق الهادئ */
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            letter-spacing: 2px;
-        }
-        .success-message p {
-            font-size: 1.2em;
-            color: #555; /* نص بلون محايد */
-            margin: 0;
-        }
-        @keyframes fadeIn {
-            from {
-                transform: scale(0.9);
-                opacity: 0;
-            }
-            to {
-                transform: scale(1);
-                opacity: 1;
-            }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
         }
     </style>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="success-message" id="success-message">
-        <img src="https://via.placeholder.com/130" alt="شعار الشركة"> <!-- يمكنك تغيير الرابط هنا إلى رابط الصورة الفعلي -->
-        <h1 id="message-heading">تمت العملية بنجاح</h1>
-        <p>© جميع الحقوق محفوظة لتطبيق تَسْهِيل</p>
+    <div class="reset-container">
+        <h2>إعادة تعيين كلمة المرور</h2>
+        <form id="reset-form">
+            <input type="text" id="email" placeholder="البريد الإلكتروني" required>
+            <input type="password" id="new-password" placeholder="كلمة المرور الجديدة" required>
+            <button type="submit">تحديث كلمة المرور</button>
+        </form>
     </div>
 
     <script>
-        // استخراج التوكن من الرابط (URL)
-        function getTokenFromUrl() {
-            const urlParams = new URLSearchParams(window.location.search);
-            return urlParams.get('token');
+        // استبدل هذا بالقيم الخاصة بك من Supabase
+        const supabaseUrl = 'https://szyrvmgillgknldprjfa.supabase.co';
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN6eXJ2bWdpbGxna25sZHByamZhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzI1MzI4NTksImV4cCI6MjA0ODEwODg1OX0.3GS4Si6pUZGhRGTEDXT1xeSzOI9-Gz5H9XtdIOPBbEE';
+        const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+
+        // استلام الرابط الذي يحتوي على التوكن
+        const urlParams = new URLSearchParams(window.location.search);
+        const token = urlParams.get('token');  // الحصول على التوكن من الرابط
+
+        // التأكد من أن التوكن موجود
+        if (!token) {
+            alert('لم يتم العثور على التوكن في الرابط.');
+            window.location.href = 'https://el3wady1.github.io/tasaheel'; // إعادة التوجيه إذا لم يكن هناك توكن
         }
 
-        // التأكد من وجود التوكن
-        const token = getTokenFromUrl();
+        // استماع للنموذج عند الإرسال
+        document.getElementById('reset-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
 
-        if (token) {
-            // إذا تم العثور على التوكن، عرض رسالة نجاح
-            document.getElementById('message-heading').innerText = 'تم إعادة تعيين كلمة المرور بنجاح';
-            // يمكنك هنا إرسال التوكن إلى السيرفر لتحديث كلمة المرور عبر Supabase، لكن هذا غير ممكن فقط من خلال HTML.
-        } else {
-            // إذا لم يكن هناك توكن في الرابط
-            document.getElementById('message-heading').innerText = 'حدث خطأ أثناء إعادة تعيين كلمة المرور';
-        }
+            const email = document.getElementById('email').value;
+            const newPassword = document.getElementById('new-password').value;
+
+            // تحديث كلمة المرور باستخدام التوكن
+            const { data, error } = await supabase.auth.api
+                .updateUserByToken(token, { email: email, password: newPassword });
+
+            if (error) {
+                alert('خطأ أثناء تحديث كلمة المرور: ' + error.message);
+            } else {
+                alert('تم تحديث كلمة المرور بنجاح!');
+                window.location.href = 'https://el3wady1.github.io/tasaheel/success.html'; // إعادة التوجيه لصفحة النجاح بعد التحديث
+            }
+        });
     </script>
 </body>
 </html>
