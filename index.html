@@ -62,7 +62,7 @@
 
         // استلام الرابط الذي يحتوي على التوكن
         const urlParams = new URLSearchParams(window.location.search);
-        const token = urlParams.get('token');  // الحصول على التوكن من الرابط
+        const token = urlParams.get('code');  // الحصول على التوكن من الرابط
 
         // التأكد من أن التوكن موجود
         if (!token) {
