@@ -3,17 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تمت العملية بنجاح</title>
+    <title>رسالة نجاح</title>
     <style>
         body {
             font-family: 'Cairo', sans-serif;
-            background: linear-gradient(135deg, #a8d0e6, #f1f8ff);
+            background: linear-gradient(135deg, #a8d0e6, #f1f8ff); /* خلفية متدرجة بين الأزرق الفاتح والأبيض */
             margin: 0;
             padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
+            overflow: hidden;
         }
         .success-message {
             text-align: center;
@@ -23,16 +24,53 @@
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
             max-width: 450px;
             width: 100%;
+            animation: fadeIn 0.8s ease-out;
         }
-        h1 {
-            color: #4f8c9e;
+        .success-message img {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            margin-bottom: 20px;
+            border: 5px solid #a8d0e6; /* إضافة حدود باللون الأزرق الفاتح */
+            transition: transform 0.3s ease;
+        }
+        .success-message img:hover {
+            transform: scale(1.1);
+        }
+        .success-message h1 {
+            font-size: 2em;
+            color: #4f8c9e; /* تغيير اللون إلى الأزرق الهادئ */
+            margin: 0;
+            margin-bottom: 15px;
+            background: linear-gradient(90deg, #4f8c9e, #a8d0e6); /* تدرج لوني بين الأزرق الفاتح والأزرق الهادئ */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 2px;
+        }
+        .success-message p {
+            font-size: 1.2em;
+            color: #555; /* نص بلون محايد */
+            margin: 0;
+        }
+        @keyframes fadeIn {
+            from {
+                transform: scale(0.9);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
         }
     </style>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="success-message">
-        <h1>تم تحديث كلمة المرور بنجاح!</h1>
-        <p>الآن يمكنك تسجيل الدخول باستخدام كلمة المرور الجديدة.</p>
+        <img src="assets/mobile.png" alt="شعار الشركة">
+        <h1>تم تغيير الرقم السري بنجاح</h1>
+        <h1>يمكنك الان تسجيل الدخول من خلال الرقم السري الجديد الي التطبيق</h1>
+        <p>©جميع الحقوق محفوظة لتطبيق تَسْهِيل </p>
     </div>
 </body>
 </html>
